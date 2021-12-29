@@ -1,5 +1,6 @@
 ﻿using System;
 using FileTransfer.Data;
+using FileTransfer.Models.Entities;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;
@@ -19,7 +20,7 @@ namespace FileTransfer.Areas.Identity
                     options.UseSqlServer(
                         context.Configuration.GetConnectionString("Conexion")));
 
-                services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                services.AddDefaultIdentity<Usuario>(options => options.SignIn.RequireConfirmedAccount = true)
                     .AddEntityFrameworkStores<FileTransferContext>();
             });
         }

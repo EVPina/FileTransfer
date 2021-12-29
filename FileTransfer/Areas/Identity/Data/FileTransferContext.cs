@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using FileTransfer.Models.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace FileTransfer.Data
 {
-    public class FileTransferContext : IdentityDbContext<IdentityUser>
+    public class FileTransferContext : IdentityDbContext<Usuario>
     {
         public FileTransferContext(DbContextOptions<FileTransferContext> options)
             : base(options)
