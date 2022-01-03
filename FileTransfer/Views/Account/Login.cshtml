@@ -1,0 +1,43 @@
+﻿@model FileTransfer.ViewsModels.VMLoginUser
+
+
+<div class="row">
+    <div class="col-md-4">
+        <section>
+            <form id="account" method="post">
+                <h4>Use a local account to log in.</h4>
+                <hr />
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Correo" ></label>
+                    <input asp-for="Correo" class="form-control" value="enzo@gmail.com"/>
+                    <span asp-validation-for="Correo"  class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Contraseña"></label>
+                    <input asp-for="Contraseña"class="form-control" value="Cranic123*"/>
+                    <span asp-validation-for="Contraseña"class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <div class="checkbox">
+                        <label asp-for="Remember">
+                            <input asp-for="Remember"/>
+                            @Html.DisplayNameFor(m => m.Remember)
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Log in</button>
+                </div>
+                <div class="form-group">
+                    <p>
+                        <a id="forgot-password" >Forgot your password?</a>
+                    </p>
+                    <p>
+                        <a >Register as a new user</a>
+                    </p>
+                </div>
+            </form>
+        </section>
+    </div>
+</div>
