@@ -1,4 +1,5 @@
 ﻿using FileTransfer.Models;
+using FileTransfer.Models.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -18,9 +19,10 @@ namespace FileTransfer.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(Usuario usuario)
         {
-            return View();
+            ViewBag.Correo = usuario.Email;
+            return View(usuario);
         }
 
         public IActionResult Privacy()
