@@ -1,10 +1,11 @@
-﻿@model FileTransfer.ViewsModels.VMProfile
+﻿@model FileTransfer.ViewsModels.VMCuenta
 
 <div class="row">
+
     <div class="col-md-4">
         <form class="list-group" id="options" method="post" asp-action="OptionsProfile">
-            <input type="submit" class="list-group-item list-group-item-action active" aria-current="true" value="Personal Data" />
-            <input type="submit" class="list-group-item list-group-item-action" value="Cuenta del Usuario" />
+            <input type="submit" class="list-group-item list-group-item-action" aria-current="true" value="Personal Data" />
+            <input type="submit" class="list-group-item list-group-item-action active" value="Cuenta del Usuario" />
             <input type="text" id="ValueOpcion" name="ValueOpcion" hidden/>
         </form>
     </div>
@@ -16,25 +17,26 @@
                 <div asp-validation-summary="All" class="text-danger"></div>
 
                 <div class="form-group">
-                    <label asp-for="Correo"></label>
-                    <input asp-for="Correo" class="form-control" />
-                    <span asp-validation-for="Correo" class="text-danger"></span>
+                    <label asp-for="Nombre"></label>
+                    <input asp-for="Nombre" class="form-control" />
+                    <span asp-validation-for="Nombre" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="Contraseña"></label>
-                    <input asp-for="Contraseña" class="form-control" />
-                    <span asp-validation-for="Contraseña" class="text-danger"></span>
+                    <label asp-for="Celular"></label>
+                    <input asp-for="Celular" class="form-control" />
+                    <span asp-validation-for="Celular" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="ConfirmContraseña"></label>
-                    <input asp-for="ConfirmContraseña" class="form-control" />
-                    <span asp-validation-for="ConfirmContraseña" class="text-danger"></span>
+                    <label asp-for="Imagen"></label>
+                    <input asp-for="Imagen" class="form-control" />
+                    <span asp-validation-for="Imagen" class="text-danger"></span>
                 </div>
                 <button type="submit" class="btn btn-primary">Enviar</button>
             </form>
         </div>
     </div>
 </div>
+
 
 <script>
     const options = document.getElementById("options");

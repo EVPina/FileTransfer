@@ -15,9 +15,22 @@ namespace FileTransfer.Controllers
             return View();
         }
         
-        public IActionResult Profile(VMProfile vMProfile)
+        public IActionResult Profile()
         {
-            return View(vMProfile);
+            return View();
+        }
+        
+        public IActionResult Cuenta()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult OptionsProfile(string ValueOpcion)
+        {
+            if(ValueOpcion == "1")
+                return View(nameof(Cuenta));
+            return View(nameof(Profile));
         }
 
         [HttpPost]
