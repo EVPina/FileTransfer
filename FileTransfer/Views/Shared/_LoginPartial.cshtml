@@ -7,9 +7,8 @@
     @if (User.Identity.IsAuthenticated)
     {
     <li class="nav-item dropdown">
-        @*<a href="#"><img src="~/images/usuario.svg" id="ImageUser" alt="imagen del usuario" /></a> *@
-        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">
-            @ViewBag.Correo
+        <a class="nav-link dropdown-toggle" id="username" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">
+            @*<img src="~/images/usuario.svg" id="ImageUser" alt="imagen del usuario" width="30" />*@
         </a>
         <ul class="dropdown-menu">
             <li><a class="dropdown-item" asp-action="Profile" asp-controller="User">Perfil</a></li>
@@ -31,9 +30,30 @@
         </li>
     }
 </ul>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
 <script>
-   @* const image_user = localStorage.getItem("userimage")
-    if (image_user != null) {
-        document.getElementById("ImageUser").src = image_user;
-    }*@
+    let url = document.URL;
+    const iduser = url.substring(url.indexOf("#") + 1, url.length)
+    //Obtener imagen del usuario
+    const GetUserImage=(iduser)=>{
+        let username = document.getElementById('username')
+        let data = { id: iduser }
+        let url2 = "@Url.Action( "GetUsername", "User")"
+        $.post(url2, data).done(function (data) {
+            username.textContent = data
+        }).fail(function (err) {
+            console.log(err.responseText)
+        })
+    }
+    if (url.indexOf("#") !== -1) {
+        localStorage.setItem("iduser", iduser)
+        GetUserImage(iduser);
+    } else {
+        const id = localStorage.getItem('iduser')
+        GetUserImage(id);
+    }
+
+
+
 </script>

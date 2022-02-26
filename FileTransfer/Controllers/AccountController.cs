@@ -47,7 +47,7 @@ namespace FileTransfer.Controllers
                     var checkuser = await _userManager.GetUserAsync(userPrincipal);*/
                     var checkuser = await _userManager.FindByEmailAsync(vMLoginUser.Correo);
                     if (checkuser != null)
-                        return RedirectToAction("Index", "Home", checkuser);
+                        return RedirectToAction("Index", "Home", checkuser.Id);
 
                 }
 

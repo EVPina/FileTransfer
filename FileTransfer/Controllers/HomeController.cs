@@ -19,10 +19,9 @@ namespace FileTransfer.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index(Usuario usuario)
+        public IActionResult Index()
         {
-            ViewBag.Correo = usuario.Email;
-            return View(usuario);
+            return View();
         }
 
         public IActionResult Privacy()
