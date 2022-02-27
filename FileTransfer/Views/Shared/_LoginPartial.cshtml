@@ -12,9 +12,15 @@
             <img src="~/images/usuario.svg" id="ImageUser" alt="imagen del usuario" />
         </a>
         <ul class="dropdown-menu">
-            <li><a class="dropdown-item" asp-action="Profile" asp-controller="User">Perfil</a></li>
-            <li>
+            <li class="dropdown-item">
+                <form id="logoutForm" class="form-inline" method="post" asp-action="Profile" asp-controller="User">
+                    <img src="~/images/usuario.svg" id="ImageUser" alt="imagen del usuario" />
+                    <button type="submit" class="nav-link btn btn-link text-dark nav-item dropdown">Perfil</button>
+                </form>
+            </li>
+            <li class="dropdown-item">
                 <form id="logoutForm" class="form-inline" method="post" asp-action="CerrarSesion" asp-controller="Account">
+                    <img src="~/images/log-out.svg" alt="imagen para cerrar sesion"/>
                     <button id="logout" type="submit" class="nav-link btn btn-link text-dark nav-item dropdown">Logout</button>
                 </form>
             </li>
