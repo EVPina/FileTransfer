@@ -8,22 +8,13 @@ namespace FileTransfer.ViewsModels
 {
     public class VMProfile : IListErros
     {
-        [Required]
-        [DataType(DataType.EmailAddress)]
-        [Display( Name = "Email")]
-        public string Correo { get; set; }
-        
-        [Required]
-        [DataType(DataType.Password)]
-        [Display( Name = "Password")]
-        public string Contraseña { get; set; }
-        
-        [Required]
-        [DataType(DataType.Password)]
-        [Compare(nameof(Contraseña), ErrorMessage = "Contraseñas diferentes")]
-        [Display( Name = "Confirm Password")]
-        public string ConfirmContraseña { get; set; }
-        
+
+        [Display(Name = "Nombre")]
+        public string Nombre { get; set; }
+
+        [DataType(DataType.PhoneNumber)]
+        [Display(Name = "Celular")]
+        public string Celular { get; set; }
 
         public List<dynamic> ListErros { get; set; }
     }

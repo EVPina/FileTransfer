@@ -11,25 +11,31 @@
     </div>
     <div class="col-md-8">
         <div class="col">
-            <form method="post" asp-controller="User" asp-action="SendProfile">
+            <form method="post" asp-controller="User" asp-action="SendCuenta" enctype="multipart/form-data">
                 <h4>Create a new account.</h4>
                 <hr />
                 <div asp-validation-summary="All" class="text-danger"></div>
 
                 <div class="form-group">
-                    <label asp-for="Nombre"></label>
-                    <input asp-for="Nombre" class="form-control" />
-                    <span asp-validation-for="Nombre" class="text-danger"></span>
+                    <label asp-for="Correo"></label>
+                    <input asp-for="Correo" class="form-control" id="emailuser"/>
+                    <span asp-validation-for="Correo" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="Celular"></label>
-                    <input asp-for="Celular" class="form-control" />
-                    <span asp-validation-for="Celular" class="text-danger"></span>
+                    <label asp-for="Password"></label>
+                    <input asp-for="Password" class="form-control" id="passuser" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="Imagen"></label>
-                    <input asp-for="Imagen" class="form-control" />
-                    <span asp-validation-for="Imagen" class="text-danger"></span>
+                    <label asp-for="ConfirmPassword"></label>
+                    <input asp-for="ConfirmPassword" class="form-control"/>
+                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ImagenUsuario"></label>
+                    <input asp-for="ImagenUsuario" class="form-control" type="file" />
+                    <span asp-validation-for="ImagenUsuario" class="text-danger"></span>
+                    <img id="imagenuser" src="" alt="" width="350" />
                 </div>
                 <button type="submit" class="btn btn-primary">Enviar</button>
             </form>
@@ -39,15 +45,31 @@
 
 
 <script>
-    const options = document.getElementById("options");
-    const ultimaopcion = document.getElementById("ValueOpcion");
-    const totalitems = options.children.length
-    for (let i = 0; i < totalitems; i++) {
-        const actualoption = options.children[i]
-        if (actualoption.id !== ultimaopcion.id) {
-            actualoption.addEventListener('click', (evt) => {
-                ultimaopcion.value = i
-            })
+    const id = localStorage.getItem('iduser')
+    const correo = document.getElementById('emailuser')
+    const imagen = document.getElementById('imagenuser')
+    const fileimage = document.getElementById('ImagenUsuario')
+    const fileReader = new FileReader();
+    let base64String = "";
+    document.getElementById('passuser').value = ''
+    let data = { id: id }
+    let urldata = "@Url.Action("GetUserData", "User")"
+    $.post(urldata, data).done(function (data) {
+        correo.value = data.email
+        imagen.src = data.imageUser
+    }).fail(function (err) {
+        console.log(err.responseText)
+    })
+    fileimage.addEventListener("change", function(){
+        const reader = new FileReader();
+        let archivos = fileimage.files;
+        let archivo_nombre = archivos[0].name;
+        reader.onload = function () {
+            base64String = `data:image/${archivo_nombre.substring(archivo_nombre.indexOf('.') + 1)};base64,${reader.result.replace("data:", "").replace(/^.+,/, "")}`;
+            imagen.src = base64String;
+            imagen.alt = archivo_nombre;
         }
-    }
+        reader.readAsDataURL(fileimage.files[0]);
+    })
+
 </script>

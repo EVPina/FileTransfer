@@ -3,12 +3,13 @@
 @inject SignInManager<Usuario> SignInManager
 @inject UserManager<Usuario> UserManager
 
+<link href="~/sass/Header.min.css" type="text/css" rel="stylesheet"/>
 <ul class="navbar-nav">
     @if (User.Identity.IsAuthenticated)
     {
     <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" id="username" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">
-            @*<img src="~/images/usuario.svg" id="ImageUser" alt="imagen del usuario" width="30" />*@
+            <img src="~/images/usuario.svg" id="ImageUser" alt="imagen del usuario" />
         </a>
         <ul class="dropdown-menu">
             <li><a class="dropdown-item" asp-action="Profile" asp-controller="User">Perfil</a></li>
@@ -34,14 +35,14 @@
 
 <script>
     let url = document.URL;
-    const iduser = url.substring(url.indexOf("#") + 1, url.length)
+    const iduser = url.substring(url.indexOf("#") + 1)
     //Obtener imagen del usuario
     const GetUserImage=(iduser)=>{
-        let username = document.getElementById('username')
+        let userimage= document.getElementById('ImageUser')
         let data = { id: iduser }
-        let url2 = "@Url.Action( "GetUsername", "User")"
+        let url2 = "@Url.Action("GetUserImage", "User")"
         $.post(url2, data).done(function (data) {
-            username.textContent = data
+            userimage.src = data
         }).fail(function (err) {
             console.log(err.responseText)
         })
