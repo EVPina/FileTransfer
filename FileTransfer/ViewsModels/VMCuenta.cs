@@ -17,6 +17,10 @@ namespace FileTransfer.ViewsModels
         public string Correo { get; set; }
 
         [DataType(DataType.Password)]
+        [Display(Name = "OldPassword")]
+        public string OldPassword { get; set; }
+        
+        [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string Password { get; set; }
 
