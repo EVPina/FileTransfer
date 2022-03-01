@@ -55,9 +55,13 @@ namespace FileTransfer.Controllers
         [HttpPost]
         public IActionResult OptionsProfile(string ValueOpcion)
         {
-            if(ValueOpcion == "1")
-                return View(nameof(Cuenta));
-            return View(nameof(Profile));
+            switch (ValueOpcion)
+            {
+                case "1":
+                    return View(nameof(Cuenta));
+                default:
+                    return View(nameof(Profile));
+            }
         }
 
         [HttpPost]

@@ -1,0 +1,22 @@
+﻿
+<div class="col-md-4">
+    <form class="list-group" id="options" method="post" asp-action="OptionsProfile">
+        <input type="submit" class="list-group-item list-group-item-action" aria-current="true" value="Personal Data" />
+        <input type="submit" class="list-group-item list-group-item-action" value="Cuenta del Usuario" />
+        <input type="text" id="ValueOpcion" name="ValueOpcion" hidden/>
+    </form>
+</div>
+<script>
+    const ValueOpcion = document.getElementById("ValueOpcion");
+    const options = document.getElementById("options");
+    const totalitems = options.children.length
+    for (let i = 0; i < totalitems; i++) {
+        const actualoption = options.children[i]
+        if (@Model === i) {
+            actualoption.classList.add("active")
+        }
+        actualoption.addEventListener('click', function () {
+            ValueOpcion.value = i
+        })
+    }
+</script>

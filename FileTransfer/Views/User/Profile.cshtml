@@ -1,13 +1,10 @@
 ﻿@model FileTransfer.ViewsModels.VMProfile
 
+@{
+    int opcion = 0;
+}
 <div class="row">
-    <div class="col-md-4">
-        <form class="list-group" id="options" method="post" asp-action="OptionsProfile">
-            <input type="submit" class="list-group-item list-group-item-action active" aria-current="true" value="Personal Data" />
-            <input type="submit" class="list-group-item list-group-item-action" value="Cuenta del Usuario" />
-            <input type="text" id="ValueOpcion" name="ValueOpcion" hidden/>
-        </form>
-    </div>
+    @Html.Partial("_ProfileOptions", opcion)
     <div class="col-md-8">
         <div class="col">
             <form method="post" asp-controller="User" asp-action="SendProfile">
@@ -33,23 +30,12 @@
 </div>
 
 <script>
-    const options = document.getElementById("options");
-    const ultimaopcion = document.getElementById("ValueOpcion");
-    const totalitems = options.children.length   
     const id = localStorage.getItem('iduser')
     const nombre = document.getElementById('Nombre')
     const celular = document.getElementById('Celular')
     document.getElementById('IdUser').value = id
     let urldata = "@Url.Action("GetUserData", "User")"
     let data = { id: id }
-    for (let i = 0; i < totalitems; i++) {
-        const actualoption = options.children[i]
-        if (actualoption.id !== ultimaopcion.id) {
-            actualoption.addEventListener('click', (evt) => {
-                ultimaopcion.value = i
-            })
-        }
-    }
     //Almacenar valores en los campos
     $.post(urldata, data).done(function (data) {
         nombre.value = data.userName
