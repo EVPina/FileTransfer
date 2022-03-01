@@ -7,27 +7,15 @@ using System.Threading.Tasks;
 
 namespace FileTransfer.ViewsModels
 {
-    public class VMCuenta : IListErros
+    public class VMCuenta : IData,IListErros
     {    
         [Required]
         public string IdUser { get; set; }
+        
         [Required]
         [DataType(DataType.EmailAddress)]
         [Display(Name = "Email")]
         public string Correo { get; set; }
-
-        [DataType(DataType.Password)]
-        [Display(Name = "OldPassword")]
-        public string OldPassword { get; set; }
-        
-        [DataType(DataType.Password)]
-        [Display(Name = "Password")]
-        public string Password { get; set; }
-
-        [DataType(DataType.Password)]
-        [Compare(nameof(Password), ErrorMessage = "Contraseñas diferentes")]
-        [Display(Name = "Confirm Password")]
-        public string ConfirmPassword { get; set; }
 
         [Display(Name = "Imagen")]
         public IFormFile ImagenUsuario { get; set; }

@@ -18,21 +18,6 @@
                     <span asp-validation-for="Correo" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="OldPassword"></label>
-                    <input asp-for="OldPassword" class="form-control" id="passuser" />
-                    <span asp-validation-for="OldPassword" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Password"></label>
-                    <input asp-for="Password" class="form-control" id="passuser" />
-                    <span asp-validation-for="Password" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="ConfirmPassword"></label>
-                    <input asp-for="ConfirmPassword" class="form-control"/>
-                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
-                </div>
-                <div class="form-group">
                     <label asp-for="ImagenUsuario"></label>
                     <input asp-for="ImagenUsuario" class="form-control" type="file" />
                     <span asp-validation-for="ImagenUsuario" class="text-danger"></span>
@@ -50,11 +35,9 @@
     const correo = document.getElementById('emailuser')
     const imagen = document.getElementById('imagenuser')
     const fileimage = document.getElementById('ImagenUsuario')
-    const formcuenta = document.getElementById('form-cuenta')
     document.getElementById('IdUser').value = id
     const fileReader = new FileReader();
     let base64String = "";
-    document.getElementById('passuser').value = ''
     let data = { id: id }
     let urldata = "@Url.Action("GetUserData", "User")"
     //Almacenar valores en los campos

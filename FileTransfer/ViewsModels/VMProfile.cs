@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FileTransfer.ViewsModels
 {
-    public class VMProfile : IListErros
+    public class VMProfile : IData,IListErros
     {
 
         [Required]

@@ -33,9 +33,14 @@ namespace FileTransfer.Controllers
             return View();
         }
 
-        public IActionResult Cuenta(VMCuenta vMCuenta)
+        public IActionResult Cuenta()
         {
-            return View(vMCuenta);
+            return View();
+        }
+        
+        public IActionResult ChangePassword()
+        {
+            return View();
         }
 
         [HttpPost]
@@ -59,11 +64,26 @@ namespace FileTransfer.Controllers
             {
                 case "1":
                     return View(nameof(Cuenta));
+                case "2":
+                    return View(nameof(ChangePassword));
                 default:
                     return View(nameof(Profile));
             }
         }
 
+        [HttpPost]
+        public async Task<IActionResult> SendPassword(VMPassword vMPassword)
+        {
+            if (ModelState.IsValid)
+            {
+                Usuario usuario =  await _userManager.FindByIdAsync(vMPassword.IdUser);
+                var pass = vMPassword.Password;
+
+                if (pass != null)
+                    await _userManager.ChangePasswordAsync(usuario, vMPassword.OldPassword, pass);
+            }
+            return View(nameof(ChangePassword), vMPassword);
+        }
         [HttpPost]
         public async Task<IActionResult> SendCuenta(VMCuenta vMCuenta)
         {
@@ -71,7 +91,6 @@ namespace FileTransfer.Controllers
             {
                 Usuario usuario =  await _userManager.FindByIdAsync(vMCuenta.IdUser);
                 var correo = vMCuenta.Correo;
-                var pass = vMCuenta.Password;
                 var imagen = vMCuenta.ImagenUsuario;
                 if (imagen != null)
                 {
@@ -86,8 +105,6 @@ namespace FileTransfer.Controllers
                     string nombreimagen = $"data:image/{imagename.Substring(imagename.IndexOf(".") + 1)};base64,{imagen64}";
                     usuario.ImageUser = nombreimagen;
                 }
-                if (pass != null)
-                    await _userManager.ChangePasswordAsync(usuario, vMCuenta.OldPassword, pass);
                 if (correo != null)
                     usuario.Email = correo;
 
