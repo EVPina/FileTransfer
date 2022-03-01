@@ -51,6 +51,7 @@ namespace FileTransfer.Controllers
             var user = await _userManager.FindByIdAsync(id);
             return user;
         }
+
         [HttpPost]
         public IActionResult OptionsProfile(string ValueOpcion)
         {
@@ -64,7 +65,8 @@ namespace FileTransfer.Controllers
         {
             if (ModelState.IsValid)
             {
-                Usuario usuario =  await _userManager.FindByEmailAsync(vMCuenta.Correo);
+                Usuario usuario =  await _userManager.FindByIdAsync(vMCuenta.IdUser);
+                var correo = vMCuenta.Correo;
                 var imagen = vMCuenta.ImagenUsuario;
                 if (imagen != null)
                 {
@@ -76,27 +78,36 @@ namespace FileTransfer.Controllers
                         var fileBytes = ms.ToArray();
                         imagen64 = Convert.ToBase64String(fileBytes);
                     }
-                    string nombre = $"data:image/{imagename.Substring(imagename.IndexOf(".") + 1)};base64,{imagen64}";
-                    usuario.ImageUser = nombre;
+                    string nombreimagen = $"data:image/{imagename.Substring(imagename.IndexOf(".") + 1)};base64,{imagen64}";
+                    usuario.ImageUser = nombreimagen;
                 }
-                if (vMCuenta.Correo != null)
-                    usuario.Email = vMCuenta.Correo;
+                if (correo != null)
+                    usuario.Email = correo;
 
                 await _userManager.UpdateAsync(usuario);
             }
             return View(nameof(Cuenta), vMCuenta);
         }
 
+
         [HttpPost]
-        public async Task<IActionResult> SendProfile(VMProfile vMProfile)
+        public async Task<IActionResult> SendProfile(VMProfile vMProfile,string id)
         {
             if (ModelState.IsValid)
             {
-          /*      _userManager.fin
-                await _userManager.UpdateAsync()*/
-                return RedirectToAction(nameof(Profile));
+                Usuario usuario =  await _userManager.FindByIdAsync(vMProfile.IdUser);
+                string nombre = vMProfile.Nombre;
+                string celular = vMProfile.Celular;
+
+                if (nombre != null)
+                    usuario.UserName = nombre;
+
+                if (celular != null)
+                    usuario.PhoneNumber = celular;
+
+                await _userManager.UpdateAsync(usuario);
             }
-            return View(vMProfile);
+            return RedirectToAction(nameof(Profile),vMProfile);
         }
     }
 }

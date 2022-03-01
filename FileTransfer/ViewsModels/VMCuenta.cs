@@ -10,6 +10,8 @@ namespace FileTransfer.ViewsModels
     public class VMCuenta : IListErros
     {    
         [Required]
+        public string IdUser { get; set; }
+        [Required]
         [DataType(DataType.EmailAddress)]
         [Display(Name = "Email")]
         public string Correo { get; set; }

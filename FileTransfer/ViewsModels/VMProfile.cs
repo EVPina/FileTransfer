@@ -9,6 +9,9 @@ namespace FileTransfer.ViewsModels
     public class VMProfile : IListErros
     {
 
+        [Required]
+        public string IdUser { get; set; }
+
         [Display(Name = "Nombre")]
         public string Nombre { get; set; }
 

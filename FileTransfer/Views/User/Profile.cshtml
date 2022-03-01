@@ -14,6 +14,7 @@
                 <h4>Create a new account.</h4>
                 <hr />
                 <div asp-validation-summary="All" class="text-danger"></div>
+                <input asp-for="IdUser" hidden />
 
                 <div class="form-group">
                     <label asp-for="Nombre"></label>
@@ -34,7 +35,13 @@
 <script>
     const options = document.getElementById("options");
     const ultimaopcion = document.getElementById("ValueOpcion");
-    const totalitems = options.children.length
+    const totalitems = options.children.length   
+    const id = localStorage.getItem('iduser')
+    const nombre = document.getElementById('Nombre')
+    const celular = document.getElementById('Celular')
+    document.getElementById('IdUser').value = id
+    let urldata = "@Url.Action("GetUserData", "User")"
+    let data = { id: id }
     for (let i = 0; i < totalitems; i++) {
         const actualoption = options.children[i]
         if (actualoption.id !== ultimaopcion.id) {
@@ -43,4 +50,12 @@
             })
         }
     }
+    //Almacenar valores en los campos
+    $.post(urldata, data).done(function (data) {
+        nombre.value = data.userName
+        celular.value = data.phoneNumber
+    //    console.log(data)
+    }).fail(function (err) {
+        console.log(err.responseText)
+    })
 </script>

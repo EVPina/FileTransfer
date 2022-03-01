@@ -11,11 +11,11 @@
     </div>
     <div class="col-md-8">
         <div class="col">
-            <form method="post" asp-controller="User" asp-action="SendCuenta" enctype="multipart/form-data">
+            <form method="post" id="form-cuenta" asp-action="SendCuenta" enctype="multipart/form-data">
                 <h4>Create a new account.</h4>
                 <hr />
                 <div asp-validation-summary="All" class="text-danger"></div>
-
+                <input asp-for="IdUser" hidden/>
                 <div class="form-group">
                     <label asp-for="Correo"></label>
                     <input asp-for="Correo" class="form-control" id="emailuser"/>
@@ -37,7 +37,7 @@
                     <span asp-validation-for="ImagenUsuario" class="text-danger"></span>
                     <img id="imagenuser" src="" alt="" width="350" />
                 </div>
-                <button type="submit" class="btn btn-primary">Enviar</button>
+                <button type="submit" id="boton" class="btn btn-primary">Enviar</button>
             </form>
         </div>
     </div>
@@ -49,17 +49,21 @@
     const correo = document.getElementById('emailuser')
     const imagen = document.getElementById('imagenuser')
     const fileimage = document.getElementById('ImagenUsuario')
+    const formcuenta = document.getElementById('form-cuenta')
+    document.getElementById('IdUser').value = id
     const fileReader = new FileReader();
     let base64String = "";
     document.getElementById('passuser').value = ''
     let data = { id: id }
     let urldata = "@Url.Action("GetUserData", "User")"
+    //Almacenar valores en los campos
     $.post(urldata, data).done(function (data) {
         correo.value = data.email
         imagen.src = data.imageUser
     }).fail(function (err) {
         console.log(err.responseText)
     })
+    //mostrar imagen de input file
     fileimage.addEventListener("change", function(){
         const reader = new FileReader();
         let archivos = fileimage.files;
@@ -71,5 +75,4 @@
         }
         reader.readAsDataURL(fileimage.files[0]);
     })
-
 </script>
