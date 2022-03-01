@@ -50,7 +50,8 @@
         let data = { id: iduser }
         let url2 = "@Url.Action("GetUserImage", "User")"
         $.post(url2, data).done(function (data) {
-            userimage.src = data
+            if(data !== undefined)
+                userimage.src = data
         }).fail(function (err) {
             console.log(err.responseText)
         })
