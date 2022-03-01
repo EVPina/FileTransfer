@@ -5,5 +5,7 @@
 
 header ul .dropdown-item {
   cursor: pointer; }
-  header ul .dropdown-item img {
+  header ul .dropdown-item button img {
     width: 20px; }
+  header ul .dropdown-item button span {
+    margin-left: 11px; }
