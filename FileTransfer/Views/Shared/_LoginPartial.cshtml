@@ -13,7 +13,7 @@
         </a>
         <ul class="dropdown-menu">
             <li class="dropdown-item">
-                <form id="logoutForm" class="form-inline" method="post" asp-action="Profile" asp-controller="User">
+                <form id="logoutperfil" class="form-inline" method="post" asp-action="Profile" asp-controller="User">
                     <button type="submit" class="nav-link btn btn-link text-dark nav-item dropdown justify-content-around">
                         <img src="~/images/usuario.svg" id="ImageUser" alt="imagen del usuario" /><span>Perfil</span>
                     </button>
@@ -63,7 +63,9 @@
         const id = localStorage.getItem('iduser')
         GetUserImage(id);
     }
-
+    $("#logoutForm button").click(function () {
+        localStorage.removeItem('iduser')
+    })
 
 
 </script>
