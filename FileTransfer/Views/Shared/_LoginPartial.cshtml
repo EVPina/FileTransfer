@@ -43,11 +43,11 @@
 
 <script>
     let url = document.URL;
-    const iduser = url.substring(url.indexOf("#") + 1)
+    const urliduser = url.substring(url.indexOf("#") + 1)
     //Obtener imagen del usuario
     const GetUserImage=(iduser)=>{
         let userimage= document.getElementById('ImageUser')
-        let data = { id: iduser }
+        let data = { id: urliduser }
         let url2 = "@Url.Action("GetUserImage", "User")"
         $.post(url2, data).done(function (data) {
             if(data !== undefined)
@@ -57,7 +57,7 @@
         })
     }
     if (url.indexOf("#") !== -1) {
-        localStorage.setItem("iduser", iduser)
+        localStorage.setItem("iduser", urliduser)
         GetUserImage(iduser);
     } else {
         const id = localStorage.getItem('iduser')

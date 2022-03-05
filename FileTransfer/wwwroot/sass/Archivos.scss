@@ -1,0 +1,60 @@
+﻿
+.ContentFiles {
+    .file-select {
+        position: relative;
+        display: inline-block;
+
+        input[type="file"] {
+            opacity: 0;
+            display: inline-block;
+            width: 200px;
+            cursor: pointer;
+        }
+    }
+
+
+    .file-select::before {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+    }
+
+    .sendfiles {
+        text-transform: uppercase;
+        font-weight: 600;
+    }
+
+    #Uploadbutton::before {
+        content: 'Seleccion los archivos';       
+        cursor: pointer;
+        @extend .sendfiles;
+    }
+
+    .ListArchivos {
+        display: none;
+
+        ul {
+            li {
+                display: flex;
+                justify-content: space-around;
+                align-items: center;
+                margin: 15px 0;
+            }
+
+            @media screen and (min-width : 800px) {
+                width: 40%;
+            }
+        }
+    }
+}
+
+ul{
+    li{
+        list-style:none;
+    }
+}

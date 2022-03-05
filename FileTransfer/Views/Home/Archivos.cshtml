@@ -1,10 +1,58 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
-<div class="text-center">
+﻿<link href="~/sass/Archivos.min.css" type="text/css"  rel="stylesheet"/>
+<div id="ContentFiles" class="ContentFiles">
     <h2>Selecciona los archivos que quiere subir</h2>
-    <input type="file"/>
+    <input type="file" id="ContentFiles__Sendfiles" hidden />
+    @*<button id="Uploadbutton" class="btn btn-primary" type="button">Upload</button>*@
+    <div class="btn btn-primary file-select " id="Uploadbutton">
+        <input type="file" id="uploadarchivos" name="uploadarchivos" multiple="multiple" aria-label="Archivo">
+    </div>
+    <button id="Sendbutton" class="btn btn-primary sendfiles" type="button">SendFiles</button>
+    <div id="ListArchivos" class="ListArchivos">
+        <h3>Archivos</h3>
+        <ul>
+        </ul>
+    </div>
+   
 </div>
+<script>
+    const Sendfiles = document.getElementById("ContentFiles__Sendfiles")
+    const iduser = localStorage.getItem('iduser')
+    const uploadbutton = document.getElementById("Uploadbutton")
+    const uploadarchivos = document.getElementById("uploadarchivos")
+    const ListArchivos = document.getElementById("ListArchivos")
+    const sendbutton = document.getElementById("Sendbutton")
+    //Cargar Archivos
+    uploadbutton.addEventListener("change", function () {
+        ListArchivos.style.display = "block";
+        const allarchivos = uploadarchivos.files
+        const lista = ListArchivos.children[1]
+        for (let i = 0; i < allarchivos.length; i++) {
+            let li = document.createElement('li');
+            let img = document.createElement("img");
+            let span = document.createElement("span");
+            let actualfile = uploadarchivos.files[i];         
+            lista.appendChild(li)
+            img.src = document.URL.replace("Home/Archivos", "images/carpeta.png")
+            li.appendChild(img)
+            li.appendChild(span)
+            span.textContent = actualfile.name
+            let button = document.createElement('button')
+            button.classList.add("btn")
+            button.classList.add("btn-danger")
+            button.setAttribute("id","DeleteButton")
+            button.textContent = "Borrar"
+            li.appendChild(button)
+            button.addEventListener('click', function () {
+                button.parentElement.remove()
+            })
+        }
+        //console.log(lista)
+    })
+    //Enviar Archivos
+    sendbutton.addEventListener("click", function (evt) {
+        if (iduser === null | iduser === undefined) {
+            window.location.href = "@Url.Action("Login","Account")";
+        }
+    })
 
+</script>
