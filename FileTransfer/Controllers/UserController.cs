@@ -42,6 +42,11 @@ namespace FileTransfer.Controllers
         {
             return View();
         }
+        
+        public IActionResult MisArchivos()
+        {
+            return View();
+        }
 
         [HttpPost]
         public async Task<string> GetUserImage(string id)

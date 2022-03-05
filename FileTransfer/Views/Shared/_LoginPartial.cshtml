@@ -20,6 +20,13 @@
                 </form>
             </li>
             <li class="dropdown-item">
+                <form id="logoutForm" class="form-inline" method="post" asp-action="MisArchivos" asp-controller="User">
+                    <button id="logout" type="submit" class="nav-link btn btn-link text-dark nav-item dropdown">
+                        <img src="~/images/archivos.png" alt="imagen para cerrar sesion" /><span>Mis archivos</span>
+                    </button>
+                </form>
+            </li>
+            <li class="dropdown-item">
                 <form id="logoutForm" class="form-inline" method="post" asp-action="CerrarSesion" asp-controller="Account">
                     <button id="logout" type="submit" class="nav-link btn btn-link text-dark nav-item dropdown">
                         <img src="~/images/log-out.svg" alt="imagen para cerrar sesion" /><span>Logout</span>
