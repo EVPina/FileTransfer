@@ -11,6 +11,7 @@ namespace FileTransfer.Data
 {
     public class FileTransferContext : IdentityDbContext<Usuario>
     {
+        public DbSet<FilesUser> FilesUsers{get;set; }
         public FileTransferContext(DbContextOptions<FileTransferContext> options)
             : base(options)
         {

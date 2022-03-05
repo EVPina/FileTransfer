@@ -4,14 +4,16 @@ using FileTransfer.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FileTransfer.Migrations
 {
     [DbContext(typeof(FileTransferContext))]
-    partial class FileTransferContextModelSnapshot : ModelSnapshot
+    [Migration("20220305194322_FilesUser")]
+    partial class FilesUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
