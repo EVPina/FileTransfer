@@ -21,7 +21,7 @@
                     <label asp-for="ImagenUsuario"></label>
                     <input asp-for="ImagenUsuario" class="form-control" type="file" />
                     <span asp-validation-for="ImagenUsuario" class="text-danger"></span>
-                    <img id="imagenuser" src="" alt="" width="350" />
+                    <img id="imagen" src="" alt="" width="350" />
                 </div>
                 <button type="submit" id="boton" class="btn btn-primary">Enviar</button>
             </form>
@@ -33,7 +33,7 @@
 <script>
     const id = localStorage.getItem('iduser')
     const correo = document.getElementById('emailuser')
-    const imagen = document.getElementById('imagenuser')
+    const imagen = document.getElementById('imagen')
     const fileimage = document.getElementById('ImagenUsuario')
     document.getElementById('IdUser').value = id
     const fileReader = new FileReader();
