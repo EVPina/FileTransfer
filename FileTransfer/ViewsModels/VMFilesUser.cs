@@ -1,18 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace FileTransfer.Models.Entities
+namespace FileTransfer.ViewsModels
 {
-    public class FilesUser
+    public class VMFilesUser : IListErros
     {
-        [Key]
-        public string IdFileUser { get; set; }
         public string NameFile { get; set; }
         public string SizeFile { get; set; }
         public string DateUpload { get; set; }
         public string IdUser { get; set; }
+        public int NumeroFile { get; set; }
+        public List<dynamic> ListErros { get; set; }
     }
 }

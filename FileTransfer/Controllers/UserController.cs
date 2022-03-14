@@ -43,9 +43,10 @@ namespace FileTransfer.Controllers
             return View();
         }
         
-        public IActionResult MisArchivos()
+        public async Task<IActionResult> MisArchivos(string iduser)
         {
-            return View();
+           List<FilesUser> filesUsers = await  _context.FilesUsers.Where(c => c.IdUser == iduser).ToListAsync();
+            return View(filesUsers);
         }
 
         [HttpPost]

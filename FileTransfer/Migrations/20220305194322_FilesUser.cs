@@ -12,16 +12,16 @@ namespace FileTransfer.Migrations
                 {
                     IdFileUser = table.Column<string>(nullable: false, maxLength: 20),
                     NameFile = table.Column<string>(nullable: false),
-                    SizeFile = table.Column<string>(nullable: false, maxLength: 6),
+                    SizeFile = table.Column<string>(nullable: false, maxLength: 10),
                     DateUpload = table.Column<string>(nullable: false, maxLength: 12),
-                    IdUserId = table.Column<string>(nullable: false)
+                    IdUser = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_FilesUsers", x => x.IdFileUser);
                     table.ForeignKey(
                         name: "FK_FilesUsers_AspNetUsers_IdUserId",
-                        column: x => x.IdUserId,
+                        column: x => x.IdUser,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -30,7 +30,7 @@ namespace FileTransfer.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_FilesUsers_IdUserId",
                 table: "FilesUsers",
-                column: "IdUserId");
+                column: "IdUser");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
