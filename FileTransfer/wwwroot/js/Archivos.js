@@ -1,5 +1,5 @@
 ﻿import { MostrarAlerta } from "./Alertas.js"
-import { MostrarSpinner } from "./Spinner.js"
+import { BlockPage } from "./BlockPage.js"
 class FileUser {
     constructor(numeroFile, nameFile, sizeFile, dateUpload, iduser) {
         this.NumeroFile = numeroFile,
@@ -11,6 +11,7 @@ class FileUser {
     }
 }
 const iduser = localStorage.getItem('iduser')
+const ContentFiles = document.getElementById("ContentFiles")
 const uploadbutton = document.getElementById("Uploadbutton")
 const uploadarchivos = document.getElementById("uploadarchivos")
 const ListArchivos = document.getElementById("ListArchivos")
@@ -78,9 +79,8 @@ sendbutton.addEventListener("click", function (evt) {
         window.location.href = "Login/Account";
     } else {
         if (lista.children.length !== 0) {
-            let spinner = MostrarSpinner()
-          //  ListArchivos.insertBefore(spinner, lista)
-         /*   $.ajax({
+            const blockpage = BlockPage(ContentFiles);
+            $.ajax({
                 type: 'post',
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
@@ -94,18 +94,18 @@ sendbutton.addEventListener("click", function (evt) {
                     } else {
                         MostrarAlerta("Hubo un error", "danger");
                     }
-                    spinner.remove();
                     dataToSend = [];
                     if (data.length != 0) {
                         for (let indice = 0; indice < data.files.length; indice++) {
                             CrearItem(indice, data.files[indice].nameFile, data.files[indice].sizeFile);
                         }
                     }
+                    blockpage.remove();
                 },
                 error: function (err) {
                     console.log(err)
                 }
-            })*/
+            })
         } else {
             console.log("No hay archivos")
         }

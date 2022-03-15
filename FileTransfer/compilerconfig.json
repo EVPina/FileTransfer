@@ -1,10 +1,12 @@
-﻿[
+[
   {
     "outputFile": "wwwroot/sass/Header.css",
-    "inputFile": "wwwroot/sass/Header.scss"
+    "inputFile": "wwwroot/sass/Header.scss",
+    "sourceMap": false
   },
   {
     "outputFile": "wwwroot/sass/Archivos.css",
-    "inputFile": "wwwroot/sass/Archivos.scss"
+    "inputFile": "wwwroot/sass/Archivos.scss",
+    "sourceMap": false
   }
 ]

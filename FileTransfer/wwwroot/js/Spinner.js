@@ -6,6 +6,7 @@ function MostrarSpinner() {
     const span = document.createElement('span');
     span.classList.add("visually-hidden")
     spinner.classList.add("spinner-border");
+    spinner.classList.add("text-primary");
     spinner.setAttribute("role","status");
     spinner.appendChild(span);
     divcontent.appendChild(spinner);
