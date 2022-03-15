@@ -51,10 +51,10 @@
 <script>
     let url = document.URL;
     const urliduser = url.substring(url.indexOf("#") + 1)
+    const userimage = document.getElementById('ImageUser')
     //Obtener imagen del usuario
     const GetUserImage=(iduser)=>{
-        let userimage= document.getElementById('ImageUser')
-        let data = { id: urliduser }
+        let data = { id: iduser }
         let url2 = "@Url.Action("GetUserImage", "User")"
         $.post(url2, data).done(function (data) {
             if(data !== undefined)
@@ -63,13 +63,19 @@
             console.log(err.responseText)
         })
     }
-    if (url.indexOf("#") !== -1) {
-        localStorage.setItem("iduser", urliduser)
-        GetUserImage(iduser);
+
+    if (userimage !== null) {
+        if (url.indexOf("#") !== -1) {
+            localStorage.setItem("iduser", urliduser)
+            GetUserImage(iduser);
+        } else {
+            const id = localStorage.getItem('iduser')
+            GetUserImage(id);
+        }
     } else {
-        const id = localStorage.getItem('iduser')
-        GetUserImage(id);
+        localStorage.removeItem('iduser')
     }
+    
     $("#logoutForm button").click(function () {
         localStorage.removeItem('iduser')
     })

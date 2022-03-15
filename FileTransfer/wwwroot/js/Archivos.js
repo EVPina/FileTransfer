@@ -76,7 +76,7 @@ function CrearItem(i, nombre_archivo, size_archivo) {
 //Enviar Archivos
 sendbutton.addEventListener("click", function (evt) {
     if (iduser === null | iduser === undefined) {
-        window.location.href = "Login/Account";
+        location.replace("https://localhost:44311/Account/Login");
     } else {
         if (lista.children.length !== 0) {
             const blockpage = BlockPage(ContentFiles);
