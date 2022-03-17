@@ -20,8 +20,8 @@
                 </form>
             </li>
             <li class="dropdown-item">
-                <form id="logoutForm" class="form-inline" method="post" asp-action="MisArchivos" asp-controller="User">
-                    <button id="logout" type="submit" class="nav-link btn btn-link text-dark nav-item dropdown">
+                <form id="MisArchivosForm" class="form-inline" method="post" asp-action="MisArchivos" asp-controller="User">
+                    <button id="misarchivos" type="button" class="nav-link btn btn-link text-dark nav-item dropdown">
                         <img src="~/images/archivos.png" alt="imagen para cerrar sesion" /><span>Mis archivos</span>
                     </button>
                 </form>
@@ -52,6 +52,8 @@
     let url = document.URL;
     const urliduser = url.substring(url.indexOf("#") + 1)
     const userimage = document.getElementById('ImageUser')
+    const misarchivos = document.getElementById('misarchivos')
+    let idlocal = "";
     //Obtener imagen del usuario
     const GetUserImage=(iduser)=>{
         let data = { id: iduser }
@@ -64,18 +66,25 @@
         })
     }
 
+    //Ver ID del usuario
     if (userimage !== null) {
         if (url.indexOf("#") !== -1) {
             localStorage.setItem("iduser", urliduser)
-            GetUserImage(iduser);
-        } else {
-            const id = localStorage.getItem('iduser')
-            GetUserImage(id);
         }
+
+        idlocal = localStorage.getItem('iduser')
+        GetUserImage(idlocal);
+
     } else {
         localStorage.removeItem('iduser')
     }
     
+    //Redireccionar a misarchivos
+    misarchivos.addEventListener("click", function () {
+        location.replace(`${url.substring(0, url.indexOf("/", 8))}/User/MisArchivos?iduser=${idlocal}`)
+    })
+
+    //Cerrar sesion
     $("#logoutForm button").click(function () {
         localStorage.removeItem('iduser')
     })
