@@ -1,4 +1,4 @@
-﻿
+﻿@model List<FileTransfer.Models.Entities.FilesUser>
 
 
 <div id="ContentFiles" class="ContentFiles row">
@@ -16,15 +16,21 @@
                     <th>Nombre Archivo</th>
                     <th>Fecha de Subida</th>
                     <th>Tamaño del archivo</th>
+                    <th>Opciones</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>enzo</td>
-                    <td>20/08/2022</td>
-                    <td>20 MB</td>
-                    <td><button class="btn btn-primary">Descargar</button></td>
-                </tr>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.NameFile</td>
+                        <td>@item.DateUpload</td>
+                        <td>@item.SizeFile</td>
+                        <td><button class="btn btn-primary">Descargar</button>
+                        <button class="btn btn-danger">Borrar</button></td>
+                    </tr>
+                }
             </tbody>
         </table>
     </div>
