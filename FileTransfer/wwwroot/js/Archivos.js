@@ -1,15 +1,5 @@
 ﻿import { MostrarAlerta } from "./Alertas.js"
 import { BlockPage } from "./BlockPage.js"
-class FileUser {
-    constructor(numeroFile, nameFile, sizeFile, dateUpload, iduser) {
-        this.NumeroFile = numeroFile,
-        this.IdFileUser = "",
-        this.NameFile = nameFile,
-        this.SizeFile = sizeFile,
-        this.DateUpload = dateUpload
-        this.IdUser = iduser
-    }
-}
 const iduser = localStorage.getItem('iduser')
 const ContentFiles = document.getElementById("ContentFiles")
 const uploadbutton = document.getElementById("Uploadbutton")
@@ -17,16 +7,17 @@ const uploadarchivos = document.getElementById("uploadarchivos")
 const ListArchivos = document.getElementById("ListArchivos")
 const sendbutton = document.getElementById("Sendbutton")
 const lista = ListArchivos.children[1]
-let file = new FileUser()
-let dataToSend = []
+let contador = 0
+let files = new FormData();
 //Cargar Archivos
-uploadbutton.addEventListener("change", function () {
+uploadarchivos.addEventListener("change", function () {
     ListArchivos.style.display = "block";
     const allarchivos = uploadarchivos.files
     let cantidadarchivos = allarchivos.length
-    if (cantidadarchivos + dataToSend.length <= 10) {
+    if (cantidadarchivos + contador <= 10) {
         for (let i = 0; i < cantidadarchivos; i++) {
             let actualfile = uploadarchivos.files[i];
+            files.append(actualfile.name,actualfile)
             CrearItem(i, actualfile.name, actualfile.size);
         }
     }
@@ -46,11 +37,11 @@ uploadbutton.addEventListener("change", function () {
 
 
 function CrearItem(i, nombre_archivo, size_archivo) {
+    contador++
     let li = document.createElement('li');
     let img = document.createElement("img");
     let spannamefile = document.createElement("span");
     let spansize = document.createElement("span");
-    let today = new Date();
     const sizetotal = SizeSuffix(size_archivo);
     lista.appendChild(li)
     img.src = document.URL.replace("Home/Archivos", "images/carpeta.png")
@@ -59,17 +50,18 @@ function CrearItem(i, nombre_archivo, size_archivo) {
     spannamefile.textContent = nombre_archivo
     li.appendChild(spansize)
     spansize.textContent = sizetotal
-    file = new FileUser(i, nombre_archivo, sizetotal, today.toLocaleString("en-US", { day: "2-digit", month: "2-digit", year: "2-digit" }), iduser)
-    dataToSend.push(file)
     let button = document.createElement('button')
     button.classList.add("btn")
     button.classList.add("btn-danger")
+    button.classList.add("boton_"+nombre_archivo)
     button.setAttribute("id", "DeleteButton")
     button.textContent = "Borrar"
     li.appendChild(button)
     button.addEventListener('click', function () {
-        dataToSend.splice(dataToSend.indexOf(file), 1)
+        files.delete(nombre_archivo)
         button.parentElement.remove()
+        contador--
+
     })
 }
 
@@ -82,11 +74,11 @@ sendbutton.addEventListener("click", function (evt) {
             const blockpage = BlockPage(ContentFiles);
             $.ajax({
                 type: 'post',
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                data: JSON.stringify(dataToSend),
-                url: 'Archivos',
+                contentType: false,
+                processData: false,
                 async: true,
+                data: files,
+                url: 'MoverArchivos?iduser=' + iduser,
                 success: function (data) {
                     lista.textContent = "";
                     if (data.success) {
@@ -94,10 +86,15 @@ sendbutton.addEventListener("click", function (evt) {
                     } else {
                         MostrarAlerta("Hubo un error", "danger");
                     }
-                    dataToSend = [];
-                    if (data.length != 0) {
-                        for (let indice = 0; indice < data.files.length; indice++) {
-                            CrearItem(indice, data.files[indice].nameFile, data.files[indice].sizeFile);
+                    contador = 0
+                    let retrieveallfiles = data.files;
+                    if (retrieveallfiles.length != 0) {
+                        for (let indice = 0; indice < retrieveallfiles.length; indice++) {
+                            CrearItem(indice, retrieveallfiles[indice].fileName, retrieveallfiles[indice].length);
+                        }
+                    } else {
+                        for (var [key, value] of files.entries()) {
+                            files.delete(key);
                         }
                     }
                     blockpage.remove();

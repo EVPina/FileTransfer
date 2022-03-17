@@ -1,7 +1,7 @@
 ﻿@model FileTransfer.ViewsModels.VMFilesUser
 
 <link href="~/sass/Archivos.min.css" type="text/css"  rel="stylesheet"/>
-<div id="ContentFiles" class="ContentFiles">
+<form method="post" id="ContentFiles" class="ContentFiles" enctype="multipart/form-data">
     <h2>Selecciona los archivos que quiere subir</h2>
     <p class="Mensaje" id="Mensaje">
         <strong>Máximo de 10 Archivos</strong>
@@ -18,5 +18,5 @@
     <div id="AlertasContent" class="AlertasContent">
         <div id="AlertasContent__List" class="AlertasContent__List"></div>
     </div>
-</div>
+</form>
 <script type="module" src="~/js/Archivos.js"></script>
