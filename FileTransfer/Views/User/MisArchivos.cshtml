@@ -27,7 +27,7 @@
                         <td>@item.NameFile</td>
                         <td>@item.DateUpload</td>
                         <td>@item.SizeFile</td>
-                        <td><button class="btn btn-primary">Descargar</button>
+                        <td><a class="btn btn-primary" href="https://localhost:44311/User/DownloadFile?filename=@item.NameFile" target="_blank">Descargar</a>
                         <button onclick='Borrar("@item.NameFile")' class="btn btn-danger">Borrar</button></td>
                     </tr>
                 }
@@ -51,4 +51,5 @@
             }
         })
     }
+
 </script>

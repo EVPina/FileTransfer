@@ -52,10 +52,16 @@ namespace FileTransfer.Controllers
             return View(filesUsers);
         }
 
+        public FileResult DownloadFile(string filename)
+        {
+            string rootfile = Path.Combine(_webHostEnvironment.WebRootPath + @"\archivos", filename);
+            byte[] bytes = System.IO.File.ReadAllBytes(rootfile);
+            return File(bytes, "application/octet-stream" ,filename);
+        }
+
         [HttpPost]
         public async Task<bool> DeleteFile(string iduser,string filename)
         {
-            _webHostEnvironment.WebRootPath = System.IO.Path.Combine(Directory.GetCurrentDirectory(), "wwwroot");
             string rootfile = Path.Combine(_webHostEnvironment.WebRootPath + @"\archivos", filename);
             if (System.IO.File.Exists(rootfile))
                 System.IO.File.Delete(rootfile);
