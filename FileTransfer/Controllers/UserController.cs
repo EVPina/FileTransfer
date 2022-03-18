@@ -1,6 +1,7 @@
 ﻿using FileTransfer.Data;
 using FileTransfer.Models.Entities;
 using FileTransfer.ViewsModels;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -16,11 +17,13 @@ namespace FileTransfer.Controllers
     public class UserController : Controller
     {
         FileTransferContext _context;
+        IWebHostEnvironment _webHostEnvironment;
         UserManager<Usuario> _userManager;
-        public UserController(FileTransferContext context, UserManager<Usuario> userManager)
+        public UserController(FileTransferContext context, UserManager<Usuario> userManager, IWebHostEnvironment webHostEnvironment)
         {
             _context = context;
             _userManager = userManager;
+            _webHostEnvironment = webHostEnvironment;
         }
 
         public IActionResult Index()
@@ -47,6 +50,23 @@ namespace FileTransfer.Controllers
         {
            List<FilesUser> filesUsers = await  _context.FilesUsers.Where(c => c.IdUser == iduser).ToListAsync();
             return View(filesUsers);
+        }
+
+        [HttpPost]
+        public async Task<bool> DeleteFile(string iduser,string filename)
+        {
+            _webHostEnvironment.WebRootPath = System.IO.Path.Combine(Directory.GetCurrentDirectory(), "wwwroot");
+            string rootfile = Path.Combine(_webHostEnvironment.WebRootPath + @"\archivos", filename);
+            if (System.IO.File.Exists(rootfile))
+                System.IO.File.Delete(rootfile);
+            FilesUser actualfile = await _context.FilesUsers.FirstOrDefaultAsync(c => c.IdUser == iduser & c.NameFile == filename);
+            if(actualfile.NameFile != null)
+            {
+                _context.Remove(actualfile);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            return false;
         }
 
         [HttpPost]
