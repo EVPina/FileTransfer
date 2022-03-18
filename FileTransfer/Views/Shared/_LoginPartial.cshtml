@@ -50,6 +50,7 @@
 
 <script>
     let url = document.URL;
+    let principalurl = url.substring(0,url.indexOf("/",8));
     const urliduser = url.substring(url.indexOf("#") + 1)
     const userimage = document.getElementById('ImageUser')
     const misarchivos = document.getElementById('misarchivos')
@@ -81,7 +82,7 @@
     
     //Redireccionar a misarchivos
     misarchivos.addEventListener("click", function () {
-        location.replace(`${url.substring(0, url.indexOf("/", 8))}/User/MisArchivos?iduser=${idlocal}`)
+        location.replace(`${principalurl}/User/MisArchivos?iduser=${idlocal}`)
     })
 
     //Cerrar sesion
