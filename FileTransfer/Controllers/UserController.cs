@@ -52,11 +52,16 @@ namespace FileTransfer.Controllers
             return View(filesUsers);
         }
 
-        public FileResult DownloadFile(string filename)
+        public FileResult DownloadFile(string iduser,string filename)
         {
-            string rootfile = Path.Combine(_webHostEnvironment.WebRootPath + @"\archivos", filename);
-            byte[] bytes = System.IO.File.ReadAllBytes(rootfile);
-            return File(bytes, "application/octet-stream" ,filename);
+            string root = Path.Combine(_webHostEnvironment.WebRootPath + @"\archivos", iduser);
+            string rootfile = Path.Combine(root, filename);
+            if (System.IO.File.Exists(rootfile))
+            {
+                byte[] bytes = System.IO.File.ReadAllBytes(rootfile);
+                return File(bytes, "application/octet-stream", filename);
+            }
+            return null;
         }
 
         [HttpPost]

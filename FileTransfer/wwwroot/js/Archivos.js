@@ -79,7 +79,6 @@ sendbutton.addEventListener("click", function (evt) {
         location.replace("https://localhost:44311/Account/Login");
     } else {
         if (lista.children.length !== 0) {
-            myModal.toggle()
             const blockpage = BlockPage(ContentFiles);
             $.ajax({
                 type: 'post',
