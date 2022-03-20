@@ -25,4 +25,8 @@
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\archivos\76e91c25-e491-46bb-b65a-619dba79dc5d\" />
+  </ItemGroup>
+
 </Project>

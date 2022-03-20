@@ -51,9 +51,14 @@ namespace FileTransfer.Controllers
                 string filesize = null;
                 filesize = SizeSuffix(file.Length);
                 string dateupload = DateTime.UtcNow.ToString("dd/MM/yyyy");
-                string rootfile = Path.Combine(_webHostEnvironment.WebRootPath + @"\archivos", file.FileName);
+                string root = Path.Combine(_webHostEnvironment.WebRootPath + @"\archivos", iduser);
+                string rootfile = "";
                 try
                 {
+                    if (!Directory.Exists(root))
+                        Directory.CreateDirectory(root);
+                    rootfile = Path.Combine(root, file.FileName);
+
                     using (var stream = new FileStream(rootfile, FileMode.Create))
                     {
                         await file.CopyToAsync(stream);
