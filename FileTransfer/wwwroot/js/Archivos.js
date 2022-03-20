@@ -17,8 +17,10 @@ uploadarchivos.addEventListener("change", function () {
     if (cantidadarchivos + contador <= 10) {
         for (let i = 0; i < cantidadarchivos; i++) {
             let actualfile = uploadarchivos.files[i];
-            files.append(actualfile.name,actualfile)
-            CrearItem(i, actualfile.name, actualfile.size);
+            let newfilename = actualfile.name.replace("/^\s+|\s+$/gm", "")
+            let newfilename2 = newfilename.replace(/\s/g,"-")
+            files.append(newfilename2,actualfile)
+            CrearItem(i, newfilename2, actualfile.size);
         }
     }
     else {
