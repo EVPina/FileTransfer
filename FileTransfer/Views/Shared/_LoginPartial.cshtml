@@ -81,9 +81,11 @@
     }
     
     //Redireccionar a misarchivos
-    misarchivos.addEventListener("click", function () {
-        location.replace(`${principalurl}/User/MisArchivos?iduser=${idlocal}`)
-    })
+    if (misarchivos !== null) {
+        misarchivos.addEventListener("click", function () {
+            location.replace(`${principalurl}/User/MisArchivos?iduser=${idlocal}`)
+        })
+    }
 
     //Cerrar sesion
     $("#logoutForm button").click(function () {
