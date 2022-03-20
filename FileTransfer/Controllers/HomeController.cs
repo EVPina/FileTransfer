@@ -44,7 +44,7 @@ namespace FileTransfer.Controllers
             _webHostEnvironment.WebRootPath = System.IO.Path.Combine(Directory.GetCurrentDirectory(), "wwwroot");
             var copia_files = new List<IFormFile>();
             copia_files.AddRange(files.ToList());
-           
+
             foreach (var file in files)
             {
                 string filename = file.FileName;
@@ -58,25 +58,28 @@ namespace FileTransfer.Controllers
                     if (!Directory.Exists(root))
                         Directory.CreateDirectory(root);
                     rootfile = Path.Combine(root, file.FileName);
-
-                    using (var stream = new FileStream(rootfile, FileMode.Create))
+                    if (!System.IO.File.Exists(rootfile))
                     {
-                        await file.CopyToAsync(stream);
+                        using (var stream = new FileStream(rootfile, FileMode.Create))
+                        {
+                            await file.CopyToAsync(stream);
+                        }
+                        bool checkfile = await GuardarArchivos(filename, filesize, dateupload, iduser);
+                        if (checkfile)
+                            copia_files.Remove(file);
+                        else
+                        {
+                            System.IO.File.Delete(rootfile);
+                            return Json(new { success = false, files = copia_files });
+                        }
                     }
-                    bool check = await GuardarArchivos(filename, filesize, dateupload, iduser);
-                    if(check)
-                        copia_files.Remove(file);
                     else
-                    {
-                        System.IO.File.Delete(rootfile);
-                        return Json(new { success = false, files = copia_files });
-                    }
-
+                    return Json(new { success = false, files = copia_files });
                 }
                 catch
                 {
                     if (System.IO.File.Exists(rootfile))
-                        System.IO.File.Delete(rootfile);
+                        System.IO.File.Delete(rootfile);                   
                     return Json(new { success = false, files = copia_files });                    
                 }
             }
