@@ -1,14 +1,15 @@
 ﻿import { MostrarAlerta } from "./Alertas.js"
 import { BlockPage } from "./BlockPage.js"
+import { myModal, ModalText } from "./Modal.js"
 const iduser = localStorage.getItem('iduser')
 const ContentFiles = document.getElementById("ContentFiles")
-const uploadbutton = document.getElementById("Uploadbutton")
 const uploadarchivos = document.getElementById("uploadarchivos")
 const ListArchivos = document.getElementById("ListArchivos")
 const sendbutton = document.getElementById("Sendbutton")
 const lista = ListArchivos.children[1]
 let contador = 0
 let files = new FormData();
+
 //Cargar Archivos
 uploadarchivos.addEventListener("change", function () {
     ListArchivos.style.display = "block";
@@ -18,9 +19,14 @@ uploadarchivos.addEventListener("change", function () {
         for (let i = 0; i < cantidadarchivos; i++) {
             let actualfile = uploadarchivos.files[i];
             let newfilename = actualfile.name.replace("/^\s+|\s+$/gm", "")
-            let newfilename2 = newfilename.replace(/\s/g,"-")
-            files.append(newfilename2,actualfile)
-            CrearItem(i, newfilename2, actualfile.size);
+            let newfilename2 = newfilename.replace(/\s/g, "-")
+            if (newfilename2.includes("#")) {
+                ModalText("Advertencia", "El archivo no puede contener #")
+                myModal.show();
+            } else {
+                files.append(newfilename2, actualfile)
+                CrearItem(i, newfilename2, actualfile.size);
+            }
         }
     }
     else {
@@ -73,6 +79,7 @@ sendbutton.addEventListener("click", function (evt) {
         location.replace("https://localhost:44311/Account/Login");
     } else {
         if (lista.children.length !== 0) {
+            myModal.toggle()
             const blockpage = BlockPage(ContentFiles);
             $.ajax({
                 type: 'post',
