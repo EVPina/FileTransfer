@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FileTransfer.ViewsModels
 {
-    public class VMLoginUser : IListErros
+    public class VMLoginUser
     {
         [Required]
         [DataType(DataType.EmailAddress)]
@@ -19,7 +19,5 @@ namespace FileTransfer.ViewsModels
         public string Contraseña { get; set; }
 
         public bool Remember { get; set; }
-
-        public List<dynamic> ListErros { get; set; }
     }
 }

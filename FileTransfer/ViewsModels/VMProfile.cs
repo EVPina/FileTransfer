@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FileTransfer.ViewsModels
 {
-    public class VMProfile : IData,IListErros
+    public class VMProfile : IData
     {
 
         [Required]
@@ -18,7 +18,5 @@ namespace FileTransfer.ViewsModels
         [DataType(DataType.PhoneNumber)]
         [Display(Name = "Celular")]
         public string Celular { get; set; }
-
-        public List<dynamic> ListErros { get; set; }
     }
 }

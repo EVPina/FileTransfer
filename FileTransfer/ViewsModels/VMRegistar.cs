@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FileTransfer.ViewsModels
 {
-    public class VMRegistar : IListErros
+    public class VMRegistar
     {
         [Required]
         [DataType(DataType.EmailAddress)]
@@ -23,6 +23,5 @@ namespace FileTransfer.ViewsModels
         [Compare(nameof(Contraseña), ErrorMessage = "Contraseñas diferentes")]
         [Display( Name = "Confirm Password")]
         public string ConfirmContraseña { get; set; }
-        public List<dynamic> ListErros { get; set; }
     }
 }

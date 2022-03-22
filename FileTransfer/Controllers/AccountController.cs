@@ -37,20 +37,10 @@ namespace FileTransfer.Controllers
                 var checklogin = await _signInManager.PasswordSignInAsync(vMLoginUser.Correo, vMLoginUser.Contraseña, vMLoginUser.Remember, false);
                 if (checklogin.Succeeded)
                 {
-                    /*var userclaims = new List<Claim>()
-                    {
-                       new Claim(ClaimTypes.Email, vMLoginUser.Correo),
-                       new Claim(ClaimTypes.Name, vMLoginUser.Correo)
-                    };
-                    var userclaim = new  ClaimsIdentity(userclaims, "");
-                    var userPrincipal = new  ClaimsPrincipal(new[] { userclaim });
-                    var checkuser = await _userManager.GetUserAsync(userPrincipal);*/
                     var checkuser = await _userManager.FindByEmailAsync(vMLoginUser.Correo);
                     if (checkuser != null)
                         return RedirectToAction("Index", "Home", checkuser.Id);
-
                 }
-
             }
             ModelState.AddModelError(string.Empty, "Error al momento de loguearse");
             return View(vMLoginUser);
@@ -75,7 +65,8 @@ namespace FileTransfer.Controllers
 
             if (ModelState.IsValid)
             {
-                var check_role = await _userManager.FindByNameAsync("user");
+                List<dynamic> ListErros = new List<dynamic>();
+                var check_role = await _roleManager.FindByNameAsync("user");
                 string user_role = "user";
                 if (check_role == null)
                 {
@@ -83,11 +74,11 @@ namespace FileTransfer.Controllers
                     var checkrole = await _roleManager.CreateAsync(role);
 
                     if(!checkrole.Succeeded)
-                        vMRegistar.ListErros.Add("Error al momento de crear role");
+                        ListErros.Add("Error al momento de crear role");
                 }
 
                 Usuario usuario = new Usuario() { Email = vMRegistar.Correo,UserName = vMRegistar.Correo };
-                var checkuser =  await _userManager.FindByNameAsync(vMRegistar.Correo);
+                var checkuser =  await _userManager.FindByEmailAsync(vMRegistar.Correo);
                 if(checkuser == null)
                 {
                     var checkregister = await _userManager.CreateAsync(usuario, vMRegistar.Contraseña);
@@ -99,26 +90,15 @@ namespace FileTransfer.Controllers
                             return RedirectToAction("Login");
                         }
                         else
-                            vMRegistar.ListErros.Add("Error al momento de añadir role");
+                            ListErros.Add("Error al momento de añadir rol");
                     }
                     else
-                        vMRegistar.ListErros.Add("Error al momento de crear usuario");
+                        ListErros.Add("Error al momento de crear usuario");
                 }
                 else
-                    vMRegistar.ListErros.Add("El usuario existe");
-                /*var userclaims = new List<Claim>()
-                {
-                    new Claim(ClaimTypes.Email, vMRegistar.Correo),
-                    new Claim(ClaimTypes.Name, vMRegistar.Correo)
-                };
-                var checkclaims = await _userManager.AddClaimsAsync(usuario, userclaims);
-                if (checkclaims.Succeeded)
-                {
+                    ListErros.Add("El usuario existe");
 
-                }*/
-
-
-                foreach (var error in vMRegistar.ListErros)
+                foreach (var error in ListErros)
                 {
                     ModelState.AddModelError(string.Empty, error);
                 }

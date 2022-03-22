@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace FileTransfer.ViewsModels
 {
-    public class VMCuenta : IData,IListErros
+    public class VMCuenta : IData
     {    
         [Required]
         public string IdUser { get; set; }
@@ -19,7 +19,5 @@ namespace FileTransfer.ViewsModels
 
         [Display(Name = "Imagen")]
         public IFormFile ImagenUsuario { get; set; }
-
-        public List<dynamic> ListErros { get; set; }
     }
 }

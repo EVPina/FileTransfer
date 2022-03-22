@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace FileTransfer.ViewsModels
 {
-    public class VMPassword : IData,IListErros
+    public class VMPassword : IData
     {
         [Required]
         public string IdUser { get; set ; }
@@ -25,7 +25,5 @@ namespace FileTransfer.ViewsModels
         [Compare(nameof(Password), ErrorMessage = "Contraseñas diferentes")]
         [Display(Name = "Confirm Password")]
         public string ConfirmPassword { get; set; }
-
-        public List<dynamic> ListErros { get; set; }
     }
 }
