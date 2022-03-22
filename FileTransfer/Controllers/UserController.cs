@@ -67,18 +67,25 @@ namespace FileTransfer.Controllers
         [HttpPost]
         public async Task<bool> DeleteFile(string iduser,string filename)
         {
-            string root = Path.Combine(_webHostEnvironment.WebRootPath + @"\archivos", iduser);
-            string rootfile = Path.Combine(root, filename);
-            if (System.IO.File.Exists(rootfile))
-                System.IO.File.Delete(rootfile);
-            FilesUser actualfile = await _context.FilesUsers.FirstOrDefaultAsync(c => c.IdUser == iduser & c.NameFile == filename);
-            if(actualfile.NameFile != null)
+            try
             {
-                _context.Remove(actualfile);
-                await _context.SaveChangesAsync();
-                return true;
+
+                string root = Path.Combine(_webHostEnvironment.WebRootPath + @"\archivos", iduser);
+                string rootfile = Path.Combine(root, filename);
+                if (System.IO.File.Exists(rootfile))
+                    System.IO.File.Delete(rootfile);
+                FilesUser actualfile = await _context.FilesUsers.FirstOrDefaultAsync(c => c.IdUser == iduser & c.NameFile == filename);
+                if (actualfile.NameFile != null)
+                {
+                    _context.Remove(actualfile);
+                    await _context.SaveChangesAsync();
+                }
             }
-            return false;
+            catch
+            {
+                return false;
+            }
+            return true;
         }
 
         [HttpPost]

@@ -27,8 +27,10 @@
                         <td>@item.NameFile</td>
                         <td>@item.DateUpload</td>
                         <td>@item.SizeFile</td>
-                        <td><a class="btn btn-primary" id="descargar" href="https://localhost:44311/User/DownloadFile?iduser=@item.IdUser&filename=@item.NameFile" target="_blank">Descargar</a>
-                        <button onclick='Borrar("@item.NameFile")' class="btn btn-danger">Borrar</button></td>
+                        <td>
+                            <a class="btn btn-primary" id="descargar" href="https://localhost:44311/User/DownloadFile?iduser=@item.IdUser&filename=@item.NameFile" target="_blank">Descargar</a>
+                            <button onclick='Borrar("@item.NameFile")' class="btn btn-danger">Borrar</button>
+                        </td>
                     </tr>
                 }
             </tbody>
@@ -36,6 +38,8 @@
     </div>
 </div>
 
+
+<script type="text/javascript" src="~/js/Alertas.js"></script>
 <script type="text/javascript">
     const Borrar = namefile => {
         let iduser = localStorage.getItem("iduser");
@@ -44,12 +48,15 @@
             async: true,
             type: "post",
             success: function (res) {
-                window.location.reload()
+                if (res) {
+                    window.location.reload()
+                } else {
+                    MostrarAlerta("No se logro eliminar el archivo", "danger");
+                }
             },
             error: function (err) {
                 console.log(err)
             }
         })
     }
-
 </script>
