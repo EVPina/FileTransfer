@@ -34,13 +34,17 @@ namespace FileTransfer.Controllers
 
             if (ModelState.IsValid)
             {
-                var checklogin = await _signInManager.PasswordSignInAsync(vMLoginUser.Correo, vMLoginUser.Contraseña, vMLoginUser.Remember, false);
-                if (checklogin.Succeeded)
+                var checkuser = await _userManager.FindByEmailAsync(vMLoginUser.Correo);
+                if (checkuser != null)
                 {
-                    var checkuser = await _userManager.FindByEmailAsync(vMLoginUser.Correo);
-                    if (checkuser != null)
+                    var checklogin = await _signInManager.PasswordSignInAsync(checkuser.UserName, vMLoginUser.Contraseña, vMLoginUser.Remember, false);
+                    if (checklogin.Succeeded)
+                    {
                         return RedirectToAction("Index", "Home", checkuser.Id);
+                    }
                 }
+                else 
+                    ModelState.AddModelError(string.Empty, "No se encontro el correo");
             }
             ModelState.AddModelError(string.Empty, "Error al momento de loguearse");
             return View(vMLoginUser);
@@ -58,7 +62,27 @@ namespace FileTransfer.Controllers
         {
             return View();
         }
+        public IActionResult RememberPassword()
+        {
+            return View();
+        }
 
+        [HttpPost]
+        public async Task<IActionResult> RememberPassword(VMRegistar vMRegistar) { 
+            if(ModelState.IsValid)
+            {
+                Usuario usuario = await _userManager.FindByEmailAsync(vMRegistar.Correo);
+                if(usuario != null)
+                {
+                    string token = await _userManager.GeneratePasswordResetTokenAsync(usuario);
+                    var check = await _userManager.ResetPasswordAsync(usuario, token, vMRegistar.Contraseña);
+                    if(check.Succeeded)
+                        return RedirectToAction(nameof(Login));
+                }
+            }
+            return View(vMRegistar);
+        }
+        
         [HttpPost]
         public async Task<IActionResult> Register(VMRegistar vMRegistar)
         {

@@ -29,7 +29,8 @@ namespace FileTransfer
             services.AddControllersWithViews();
             services.AddDbContext<FileTransferContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Conexion")));
             services.AddMvc(option => option.EnableEndpointRouting = false).SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_3_0).AddNewtonsoftJson(opt => opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
-            services.AddIdentity<Usuario,IdentityRole>().AddEntityFrameworkStores<FileTransferContext>();
+            services.AddIdentity<Usuario,IdentityRole>().AddEntityFrameworkStores<FileTransferContext>()
+                .AddTokenProvider<DataProtectorTokenProvider<Usuario>>(TokenOptions.DefaultProvider);
             services.AddRazorPages();
         }
 
