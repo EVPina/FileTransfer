@@ -51,6 +51,31 @@ namespace FileTransfer.Controllers
            List<FilesUser> filesUsers = await  _context.FilesUsers.Where(c => c.IdUser == iduser).ToListAsync();
             return View(filesUsers);
         }
+        
+        [HttpPost]
+        public async Task<JsonResult> OrdenarMisArchivos(string iduser, string ordername, bool asc)
+        {
+            List<FilesUser> filesUsers = null;
+            switch (ordername)
+            {
+                case "filename":
+                        filesUsers = await _context.FilesUsers.Where(c => c.IdUser == iduser).OrderBy(x => x.NameFile).ToListAsync();
+                    if (!asc)
+                        filesUsers = filesUsers.OrderByDescending(a => a.NameFile).ToList();
+                    break;
+                case "dateupload":
+                    filesUsers = await _context.FilesUsers.Where(c => c.IdUser == iduser).OrderBy(x=>x.DateUpload).ToListAsync();
+                    if (!asc)
+                        filesUsers = filesUsers.OrderByDescending(a => a.DateUpload).ToList();
+                    break;
+                case "filesize":
+                    filesUsers = await _context.FilesUsers.Where(c => c.IdUser == iduser).OrderBy(x=>x.SizeFile).ToListAsync();
+                    if (!asc)
+                        filesUsers = filesUsers.OrderByDescending(a => a.SizeFile).ToList();
+                    break;
+            }
+            return Json(new { Lista = filesUsers });
+        }
 
         public FileResult DownloadFile(string iduser,string filename)
         {

@@ -1,4 +1,9 @@
-﻿.ContentFiles table tbody tr td {
+﻿.ContentFiles table thead tr th {
+  cursor: pointer; }
+  .ContentFiles table thead tr th img {
+    width: 20px; }
+
+.ContentFiles table tbody tr td {
   position: relative; }
   .ContentFiles table tbody tr td span {
     position: absolute;
