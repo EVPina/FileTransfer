@@ -40,16 +40,20 @@
   .ContentFiles .sendfiles, .ContentFiles #Uploadbutton::before {
     text-transform: uppercase;
     font-weight: 600; }
+  .ContentFiles .sendfiles {
+    padding: 0.6rem; }
   .ContentFiles #Uploadbutton::before {
     content: 'Seleccion los archivos';
     cursor: pointer; }
   .ContentFiles .ListArchivos {
     display: none; }
     .ContentFiles .ListArchivos ul li {
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-      margin: 15px 0; }
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      place-items: center;
+      gap: 1rem; }
+      .ContentFiles .ListArchivos ul li .Namefile {
+        word-break: break-all; }
     @media screen and (min-width: 800px) {
       .ContentFiles .ListArchivos ul {
         width: 40%; } }

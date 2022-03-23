@@ -56,6 +56,7 @@ function CrearItem(i, nombre_archivo, size_archivo) {
     li.appendChild(img)
     li.appendChild(spannamefile)
     spannamefile.textContent = nombre_archivo
+    spannamefile.classList.add("Namefile")
     li.appendChild(spansize)
     spansize.textContent = sizetotal
     let button = document.createElement('button')

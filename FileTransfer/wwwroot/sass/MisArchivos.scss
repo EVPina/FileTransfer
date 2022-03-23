@@ -1,10 +1,16 @@
 ﻿.ContentFiles {
     table {
-        @media screen and (max-width : 450px) {
-            font-size: 12px;
-
-            button, a {
-                font-size: 12px;
+        tbody {
+            tr {
+                td {
+                    position: relative;
+                    span {
+                        position: absolute;
+                        left: 50%;
+                        top: 50%;
+                        transform: translate(-50%,-50%);
+                    }
+                }
             }
         }
     }

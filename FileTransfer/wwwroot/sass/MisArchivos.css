@@ -1,5 +1,7 @@
-﻿@media screen and (max-width: 450px) {
-  .ContentFiles table {
-    font-size: 12px; }
-    .ContentFiles table button, .ContentFiles table a {
-      font-size: 12px; } }
+﻿.ContentFiles table tbody tr td {
+  position: relative; }
+  .ContentFiles table tbody tr td span {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%); }

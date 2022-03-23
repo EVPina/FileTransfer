@@ -24,9 +24,9 @@
                 @foreach (var item in Model)
                 {
                     <tr>
-                        <td>@item.NameFile</td>
-                        <td>@item.DateUpload</td>
-                        <td>@item.SizeFile</td>
+                        <td><span> @item.NameFile</span></td>
+                        <td><span> @item.DateUpload</span></td>
+                        <td><span>@item.SizeFile</span> </td>
                         <td class="d-flex gap-1">
                             <a class="btn btn-primary" id="descargar" href="https://localhost:44311/User/DownloadFile?iduser=@item.IdUser&filename=@item.NameFile" target="_blank">Descargar</a>
                             <button onclick='Borrar("@item.NameFile")' class="btn btn-danger">Borrar</button>

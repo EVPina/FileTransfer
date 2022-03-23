@@ -14,5 +14,9 @@
   {
     "outputFile": "wwwroot/sass/MisArchivos.css",
     "inputFile": "wwwroot/sass/MisArchivos.scss"
+  },
+  {
+    "outputFile": "wwwroot/sass/Body.css",
+    "inputFile": "wwwroot/sass/Body.scss"
   }
 ]

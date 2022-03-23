@@ -2,6 +2,7 @@
 
 .ContentFiles {
     position: relative;
+
     .file-select {
         position: relative;
         display: inline-block;
@@ -26,15 +27,18 @@
         bottom: 0;
     }
 
-    .sendfiles {
+    .sendfiles, #Uploadbutton::before {
         text-transform: uppercase;
         font-weight: 600;
     }
 
+    .sendfiles {
+        padding: 0.6rem;
+    }
+
     #Uploadbutton::before {
-        content: 'Seleccion los archivos';       
+        content: 'Seleccion los archivos';
         cursor: pointer;
-        @extend .sendfiles;
     }
 
     .ListArchivos {
@@ -42,10 +46,14 @@
 
         ul {
             li {
-                display: flex;
-                justify-content: space-around;
-                align-items: center;
-                margin: 15px 0;
+                display: grid;
+                grid-template-columns: repeat(4,1fr);
+                place-items: center;
+                gap: 1rem;
+
+                .Namefile {
+                    word-break: break-all;
+                }
             }
 
             @media screen and (min-width : 800px) {
