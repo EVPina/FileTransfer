@@ -1,6 +1,6 @@
 ﻿@model List<FileTransfer.Models.Entities.FilesUser>
 
-
+<link href="~/sass/MisArchivos.css" type="text/css" rel="stylesheet" />
 <div id="ContentFiles" class="ContentFiles row">
     <div class="col-md-3">
         <h2>Mis archivos</h2>
@@ -27,7 +27,7 @@
                         <td>@item.NameFile</td>
                         <td>@item.DateUpload</td>
                         <td>@item.SizeFile</td>
-                        <td>
+                        <td class="d-flex gap-1">
                             <a class="btn btn-primary" id="descargar" href="https://localhost:44311/User/DownloadFile?iduser=@item.IdUser&filename=@item.NameFile" target="_blank">Descargar</a>
                             <button onclick='Borrar("@item.NameFile")' class="btn btn-danger">Borrar</button>
                         </td>

@@ -10,5 +10,9 @@
   {
     "outputFile": "wwwroot/sass/RememberPassword.css",
     "inputFile": "wwwroot/sass/RememberPassword.scss"
+  },
+  {
+    "outputFile": "wwwroot/sass/MisArchivos.css",
+    "inputFile": "wwwroot/sass/MisArchivos.scss"
   }
 ]

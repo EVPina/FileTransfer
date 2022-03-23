@@ -1,0 +1,11 @@
+﻿.ContentFiles {
+    table {
+        @media screen and (max-width : 450px) {
+            font-size: 12px;
+
+            button, a {
+                font-size: 12px;
+            }
+        }
+    }
+}
