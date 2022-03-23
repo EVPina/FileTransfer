@@ -55,9 +55,19 @@
                     word-break: break-all;
                 }
             }
+        }
 
-            @media screen and (min-width : 800px) {
-                width: 40%;
+        @media screen and (max-width : 800px) {
+            h3 {
+                text-align: center;
+            }
+        }
+
+        @media screen and (min-width : 800px) {
+            ul {
+                li {
+                    width: 40%;
+                }
             }
         }
     }

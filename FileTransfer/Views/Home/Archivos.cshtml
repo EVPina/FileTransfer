@@ -6,11 +6,14 @@
     <p class="Mensaje" id="Mensaje">
         <strong>Máximo de 10 Archivos</strong>
     </p>
-    <input type="file" id="ContentFiles__Sendfiles" hidden />
-    <div class="btn btn-primary file-select " id="Uploadbutton">
-        <input type="file" id="uploadarchivos" name="uploadarchivos" multiple="multiple" aria-label="Archivo">
+    <div class="ContentButtons">
+        <input type="file" id="ContentFiles__Sendfiles" hidden />
+        <div class="btn btn-primary file-select " id="Uploadbutton">
+            <input type="file" id="uploadarchivos" name="uploadarchivos" multiple="multiple" aria-label="Archivo">
+        </div>
+        <button id="Sendbutton" class="btn btn-primary sendfiles" type="button">SendFiles</button>
     </div>
-    <button id="Sendbutton" class="btn btn-primary sendfiles" type="button">SendFiles</button>
+
     <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -26,7 +29,7 @@
         </div>
     </div>
 
-    <div id="ListArchivos" class="ListArchivos">
+    <div id="ListArchivos" class="ListArchivos mt-2">
         <h3>Archivos</h3>
         <ul></ul>
     </div>

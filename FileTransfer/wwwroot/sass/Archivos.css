@@ -54,8 +54,11 @@
       gap: 1rem; }
       .ContentFiles .ListArchivos ul li .Namefile {
         word-break: break-all; }
+    @media screen and (max-width: 800px) {
+      .ContentFiles .ListArchivos h3 {
+        text-align: center; } }
     @media screen and (min-width: 800px) {
-      .ContentFiles .ListArchivos ul {
+      .ContentFiles .ListArchivos ul li {
         width: 40%; } }
 
 ul li {
