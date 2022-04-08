@@ -1,12 +1,20 @@
-﻿.ContentFiles table thead tr th {
-  cursor: pointer; }
-  .ContentFiles table thead tr th img {
-    width: 20px; }
+﻿.AlertasContent {
+  position: absolute;
+  top: 0;
+  right: 0; }
+  .AlertasContent .AlertasContent__List {
+    position: relative; }
 
-.ContentFiles table tbody tr td {
+.ContentFiles {
   position: relative; }
-  .ContentFiles table tbody tr td span {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%); }
+  .ContentFiles table thead tr th {
+    cursor: pointer; }
+    .ContentFiles table thead tr th img {
+      width: 20px; }
+  .ContentFiles table tbody tr td {
+    position: relative; }
+    .ContentFiles table tbody tr td span {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%); }

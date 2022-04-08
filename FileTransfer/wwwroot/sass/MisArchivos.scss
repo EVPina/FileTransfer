@@ -1,4 +1,7 @@
-﻿.ContentFiles {
+﻿@import "_Alerts.scss";
+
+.ContentFiles {
+    position: relative;
     table {
         thead{
             tr{

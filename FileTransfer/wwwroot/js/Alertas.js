@@ -3,7 +3,6 @@
 function MostrarAlerta(mensaje, tipo) {
     let div = document.createElement('div');
     let button = document.createElement('button');
-    Mensaje.appendChild(div);
     div.classList.add("alert")
     div.classList.add(`alert-${tipo}`)
     div.classList.add("alert-dismissible")
@@ -17,6 +16,7 @@ function MostrarAlerta(mensaje, tipo) {
     button.setAttribute("data-bs-dismiss", "alert")
     button.setAttribute("aria-label", "Close")
     div.appendChild(button)
+    //Nueva lista
     document.getElementById("AlertasContent").children[0].appendChild(div)
 }
 

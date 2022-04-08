@@ -1,20 +1,23 @@
 ﻿@model List<FileTransfer.Models.Entities.FilesUser>
 
 <link href="~/sass/MisArchivos.css" type="text/css" rel="stylesheet" />
-<div id="ContentFiles" class="ContentFiles row">
+<div id="ContentFiles" class="ContentFiles row">    
     <div class="col-md-3">
         <h2>Mis archivos</h2>
         <div class="input-group mb-4">
-            <input type="text" class="form-control" placeholder="file name" aria-label="Recipient's username" aria-describedby="basic-addon2">
-            <span class="input-group-text" id="basic-addon2">🔍︎</span>
+            <input type="text" id="FilterData" class="form-control" placeholder="file name" aria-label="Recipient's username" aria-describedby="basic-addon2">
+            <button type="button" id="FilterButton"><span class="input-group-text" id="basic-addon2">🔍︎</span> </button>
+        </div>
+        <div id="AlertasContent" class="AlertasContent">
+            <div id="AlertasContent__List" class="AlertasContent__List"></div>
         </div>
     </div>
     <div class="col-md-9">
         <table class="table table-striped text-center">
             <thead>
                 <tr>
-                    <th id="filename" onclick='Ordenar("filename")'><span>Nombre Archivo</span><img id="imagenfilename" src="~/images/up-arrow.png" alt="Arrow"/> </th>
-                    <th id="dateupload" onclick='Ordenar("dateupload")'><span>Fecha de Subida </span> <img id="imagendateupload"src="~/images/up-arrow.png" alt="Arrow"/></th>
+                    <th id="filename" onclick='Ordenar("filename")'><span>Nombre Archivo</span><img id="imagenfilename" src="~/images/up-arrow.png" alt="Arrow" /> </th>
+                    <th id="dateupload" onclick='Ordenar("dateupload")'><span>Fecha de Subida </span> <img id="imagendateupload" src="~/images/up-arrow.png" alt="Arrow" /></th>
                     <th id="filesize" onclick='Ordenar("filesize")'><span>Tamaño del archivo</span><img id="imagenfilesize" src="~/images/up-arrow.png" alt="Arrow" /></th>
                     <th>Opciones</th>
                 </tr>
@@ -34,93 +37,13 @@
                     </tr>
                 }
             </tbody>
-        </table>
+        </table>        
     </div>
 </div>
-
-
-<script type="text/javascript" src="~/js/Alertas.js"></script>
 <script type="text/javascript">
-    let iduser = localStorage.getItem("iduser");
-    const TablaCuerpo = document.getElementById("TablaCuerpo");
-
-    function CrearElemento(elemento,{ list, ...props }) {
-        const el = document.createElement(elemento);
-        list && el.setAttribute('list', list);
-        Object.assign(el, props);
-        return el;
-    }
-    let asc = false
-    let rotacion = 0
-    const Ordenar = typeorder => {
-        const elemento = document.getElementById(typeorder)
-        const idimagen = elemento.children[1].id
-        const imagen = document.getElementById(idimagen)
-        rotacion = rotacion + 180
-        imagen.style.transform = "rotate("+ rotacion +"deg)"
-        asc = !asc
-        $.ajax({
-            url: `OrdenarMisArchivos?iduser=${iduser}&ordername=${typeorder}&asc=${asc}`,
-            async: true,
-            type: "post",
-            success: function (data) {
-                if (data === null) {
-                    MostrarAlerta("No se logro ordernar", "danger");
-                } else {
-                    TablaCuerpo.textContent = "";
-                    let lista = data.lista
-                    for (let i=0; i < lista.length ; i++) {
-                        const tr = document.createElement("tr")
-                        const tdname = document.createElement("td")
-                        const tddate = document.createElement("td")
-                        const tdsize = document.createElement("td")
-                        const tdbuttons = document.createElement("td")
-                        const spanname = document.createElement("span")
-                        const spandate = document.createElement("span")
-                        const spansize = document.createElement("span")
-                        const buttondelete = CrearElemento("button", {
-                            className: 'btn btn-danger',
-                        })
-                        buttondelete.textContent = "Borrar"
-                        buttondelete.addEventListener("click", function () {
-                            Borrar(lista[i].nameFile)
-                        })
-                        const buttondownload = CrearElemento("a", {
-                            className: 'btn btn-primary',
-                            id: 'descargar',
-                            href: "https://localhost:44311/User/DownloadFile?iduser=" + lista[i].idUser + "&filename=" + lista[i].nameFile,
-                            target: "_blank",
-                        })
-                        buttondownload.textContent = "Descargar"
-                        for (let index = 0; index < 4; index++) {                         
-                            spanname.textContent = lista[i].nameFile
-                            spandate.textContent = lista[i].dateUpload
-                            spansize.textContent = lista[i].sizeFile
-                            tdname.appendChild(spanname)
-                            tddate.appendChild(spandate)
-                            tdsize.appendChild(spansize)
-                            tdbuttons.classList.add("d-flex")
-                            tdbuttons.classList.add("gap-1")
-                            tdbuttons.appendChild(buttondownload)
-                            tdbuttons.appendChild(buttondelete)
-                            tr.appendChild(tdname)
-                            tr.appendChild(tddate)
-                            tr.appendChild(tdsize)
-                            tr.appendChild(tdbuttons)
-                        }
-
-                        TablaCuerpo.appendChild(tr)
-                    }
-                }
-            },
-            error: function (err) {
-                console.log(err)
-            }
-        })
-    }
     const Borrar = namefile => {
         $.ajax({
-            url: `DeleteFile?iduser=${iduser}&filename=${namefile}`,
+            url: `DeleteFile?iduser=${idlocal}&filename=${namefile}`,
             async: true,
             type: "post",
             success: function (res) {
@@ -136,3 +59,4 @@
         })
     }
 </script>
+<script type="module" src="~/js/MisArchivos.js"></script>

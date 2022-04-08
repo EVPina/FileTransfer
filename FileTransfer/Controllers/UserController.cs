@@ -46,6 +46,14 @@ namespace FileTransfer.Controllers
             return View();
         }
         
+        [HttpPost]
+        public async Task<IActionResult> Filtrar(string iduser,string dato)
+        {
+            List<FilesUser> filesUsers = await _context.FilesUsers.Where(c => c.IdUser == iduser).ToListAsync();
+            List<FilesUser> nuevalista = filesUsers.Where(c=>c.NameFile.Contains(dato)).ToList();
+            return Json(new { lista =  nuevalista });
+        }
+
         public async Task<IActionResult> MisArchivos(string iduser)
         {
            List<FilesUser> filesUsers = await  _context.FilesUsers.Where(c => c.IdUser == iduser).ToListAsync();
